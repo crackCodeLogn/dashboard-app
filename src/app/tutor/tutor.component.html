@@ -1,0 +1,133 @@
+<div class="centered-text">Create session for Calendar</div>
+
+<div class="container">
+    <div class="row-block">
+        <div class="radio-container">
+            <label class="label">Mode: </label>
+            <div class="radio-group" *ngFor="let mode of modes">
+                <label class="radio-label" [for]="mode.id">
+                    <input class="radio-button" type="radio" [id]="mode.id" [name]="mode" [value]="mode.id"
+                        [style.color]="mode.color">
+                    {{mode.name}}
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-block">
+        <div class="form-container">
+            <label class="label">Student: </label>
+            <select class="dropdown">
+                <option *ngFor="let student of students" [id]="student.id">{{student.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row-block">
+        <div class="form-container ">
+            <label class="label">Subject: </label>
+            <select class="dropdown">
+                <option *ngFor="let subject of subjects" [id]="subject.id">{{subject.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row-block">
+        <div class="form-container ">
+            <label class="label">Date: </label>
+            <input type="text" placeholder="Date" class="form-control datepicker" bsDatepicker
+                [bsConfig]="datepickerConfig" [(ngModel)]="selectedDate" (ngModelChange)="onDateChange($event)">
+        </div>
+    </div>
+
+    <!-- <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-12 col-md-4 form-group">
+            <input type="text"
+                  placeholder="Datepicker"
+                  class="form-control"
+                  bsDatepicker>
+          </div>
+          <div class="col-xs-12 col-12 col-md-4 form-group">
+            <input type="text"
+                  placeholder="Daterangepicker"
+                  class="form-control"
+                  bsDaterangepicker>
+          </div>
+        </div>
+      </div> -->
+
+    <div class="row-block">
+        <div class="form-container">
+            <label class="label">Time: </label>
+            <input class="time-input" type="text" pattern="[0-9]*" placeholder="Start time"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')" minlength="4" maxlength="4" required>
+        </div>
+    </div>
+
+    <div class="row-block">
+        <div class="form-container">
+            <label class="label">Duration: </label>
+            <timepicker class="time-input" [showMeridian]="false" [(ngModel)]="timeDuration" [showSpinners]="false">
+            </timepicker>
+        </div>
+    </div>
+
+    <div class="row-block">
+        <div class="form-container">
+            <input class="btn-save btn btn-primary" type="button" value="Save">
+        </div>
+    </div>
+</div>
+
+
+<div class="centered-text">Add new student</div>
+
+<div class="container">
+    <div class="row-block">
+        <div class="form-container">
+            <label class="label">Student: </label>
+            <input class="new-add-input" type="text" placeholder="New student">
+        </div>
+    </div>
+
+    <div class="row-block">
+        <div class="form-container">
+            <input class="btn-save btn btn-primary" type="button" value="Add">
+        </div>
+    </div>
+</div>
+
+<div class="centered-text">Add new subject</div>
+
+<div class="container">
+    <div class="row-block">
+        <div class="form-container">
+            <label class="label">Subject: </label>
+            <input class="new-add-input" type="text" placeholder="New subject">
+        </div>
+    </div>
+
+    <div class="row-block">
+        <div class="form-container">
+            <input class="btn-save btn btn-primary" type="button" value="Add">
+        </div>
+    </div>
+</div>
+
+<div class="centered-text">Add new teaching mode</div>
+
+<div class="container">
+    <div class="row-block">
+        <div class="form-container">
+            <label class="label">Mode: </label>
+            <input class="new-add-input" type="text" placeholder="New mode">
+        </div>
+    </div>
+
+    <div class="row-block">
+        <div class="form-container">
+            <input class="btn-save btn btn-primary" type="button" value="Add">
+        </div>
+    </div>
+</div>

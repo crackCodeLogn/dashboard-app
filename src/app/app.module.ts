@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { LineChartComponent } from './charting/line-chart/line-chart.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { NgApexchartsModule } from "ng-apexcharts";
 import { RouterModule, RouterOutlet, Routes } from "@angular/router";
@@ -38,6 +38,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
+    ReactiveFormsModule,
     TimepickerModule.forRoot(),
   ],
   providers: [BsDatepickerConfig, TimepickerConfig],

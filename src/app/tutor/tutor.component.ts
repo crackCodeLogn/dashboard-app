@@ -19,6 +19,12 @@ export class TutorComponent implements OnInit {
   modes: Mode[] = [];
   students: Student[] = [];
   subjects: Subject[] = [];
+  currentSubjects: Subject[] = [];
+  initialMode = 1;
+  initialStudent =  '';
+  initialSubject = '';
+  initialTime = 1900;
+  initialSupplierDate = new Date();
 
   datepickerConfig: Partial<BsDatepickerConfig> = {
     dateInputFormat: "YYYYMMDD",
@@ -31,14 +37,15 @@ export class TutorComponent implements OnInit {
     supplierDate.setHours(1);
     supplierDate.setMinutes(0);
     console.log(supplierDate);
+    this.initialSupplierDate = supplierDate;
 
     this.sessionForm = this.fb.group({
-      mode: [1, Validators.required],
-      student: ['', Validators.required],
-      subject: ['', Validators.required],
-      date: [supplierDate, Validators.required],
-      time: ['1900', Validators.required],
-      duration: [supplierDate, Validators.required]
+      mode: [this.initialMode, Validators.required],
+      student: [this.initialStudent, Validators.required],
+      subject: [this.initialSubject, Validators.required],
+      date: [this.initialSupplierDate, Validators.required],
+      time: [this.initialTime, Validators.required],
+      duration: [this.initialSupplierDate, Validators.required]
     });
   }
 
@@ -122,9 +129,21 @@ export class TutorComponent implements OnInit {
       console.log(session);
 
       this.tutorService.sendSessionDetail(session);
+
+      this.sessionForm.reset();
+      this.sessionForm.get('student')?.patchValue(this.initialStudent);
+      this.sessionForm.get('subject')?.patchValue(this.initialSubject);
+      this.sessionForm.get('mode')?.patchValue(this.initialMode);
+      this.sessionForm.get('time')?.patchValue(this.initialTime);
+      this.sessionForm.get('date')?.patchValue(this.initialSupplierDate);
+      this.sessionForm.get('duration')?.patchValue(this.initialSupplierDate);
     } else {
       console.log("Form data is invalid..")
     }
   }
+
+  // resetFormWithData(data: string) {
+  //   this.sessionForm.get(data)?.patchValue(this.initialValues[data]);
+  // }
 
 }

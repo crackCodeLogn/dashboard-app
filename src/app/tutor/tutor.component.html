@@ -32,7 +32,8 @@
                 <label class="label">Subject: </label>
                 <select class="dropdown" formControlName="subject">
                     <option value="" disabled selected>Select subject</option>
-                    <option *ngFor="let subject of getSubjectsForMode()" [id]="subject.id" [value]="subject.id">{{subject.name}}</option>
+                    <option *ngFor="let subject of getSubjectsForMode()" [id]="subject.id" [value]="subject.id">
+                        {{subject.name}}</option>
                 </select>
             </div>
         </div>
@@ -85,54 +86,55 @@
         </div>
     </div>
 </form>
+<div hidden>
+    <div class="centered-text">Add new student</div>
 
-<div class="centered-text">Add new student</div>
+    <div class="container">
+        <div class="row-block">
+            <div class="form-container">
+                <label class="label">Student: </label>
+                <input class="new-add-input" type="text" placeholder="New student">
+            </div>
+        </div>
 
-<div class="container">
-    <div class="row-block">
-        <div class="form-container">
-            <label class="label">Student: </label>
-            <input class="new-add-input" type="text" placeholder="New student">
+        <div class="row-block">
+            <div class="form-container">
+                <input class="btn-save btn btn-primary" type="button" value="Add">
+            </div>
         </div>
     </div>
 
-    <div class="row-block">
-        <div class="form-container">
-            <input class="btn-save btn btn-primary" type="button" value="Add">
+    <div class="centered-text">Add new subject</div>
+
+    <div class="container">
+        <div class="row-block">
+            <div class="form-container">
+                <label class="label">Subject: </label>
+                <input class="new-add-input" type="text" placeholder="New subject">
+            </div>
         </div>
-    </div>
-</div>
 
-<div class="centered-text">Add new subject</div>
-
-<div class="container">
-    <div class="row-block">
-        <div class="form-container">
-            <label class="label">Subject: </label>
-            <input class="new-add-input" type="text" placeholder="New subject">
-        </div>
-    </div>
-
-    <div class="row-block">
-        <div class="form-container">
-            <input class="btn-save btn btn-primary" type="button" value="Add">
-        </div>
-    </div>
-</div>
-
-<div class="centered-text">Add new teaching mode</div>
-
-<div class="container">
-    <div class="row-block">
-        <div class="form-container">
-            <label class="label">Mode: </label>
-            <input class="new-add-input" type="text" placeholder="New mode">
+        <div class="row-block">
+            <div class="form-container">
+                <input class="btn-save btn btn-primary" type="button" value="Add">
+            </div>
         </div>
     </div>
 
-    <div class="row-block">
-        <div class="form-container">
-            <input class="btn-save btn btn-primary" type="button" value="Add">
+    <div class="centered-text">Add new teaching mode</div>
+
+    <div class="container">
+        <div class="row-block">
+            <div class="form-container">
+                <label class="label">Mode: </label>
+                <input class="new-add-input" type="text" placeholder="New mode">
+            </div>
+        </div>
+
+        <div class="row-block">
+            <div class="form-container">
+                <input class="btn-save btn btn-primary" type="button" value="Add">
+            </div>
         </div>
     </div>
 </div>

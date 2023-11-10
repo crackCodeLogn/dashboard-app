@@ -1,5 +1,6 @@
 <form [formGroup]="sessionForm">
     <div class="centered-text">Create session for Calendar</div>
+    <div class="centered-text-small" *ngIf="fetchStatus.length > 0">{{ fetchStatus }}</div>
 
     <div class="container">
         <div class="row-block">

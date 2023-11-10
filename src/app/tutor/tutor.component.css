@@ -74,3 +74,8 @@
 .btn-save {
     width: 100%;
 }
+
+.centered-text-small {
+    font-size: 15px;
+    text-align: center;
+}

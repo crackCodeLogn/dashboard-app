@@ -15,6 +15,7 @@ import { Session } from '../model/Session';
 export class TutorComponent implements OnInit {
 
   sessionForm!: FormGroup;
+  fetchStatus: string = '*** Waiting for server to come alive ***';
 
   modes: Mode[] = [];
   students: Student[] = [];
@@ -54,6 +55,8 @@ export class TutorComponent implements OnInit {
       console.log("response from modes => ")
       console.log(modes)
       modes.forEach(mode => this.modes.push(mode));
+      debugger;
+      this.fetchStatus = "";
     });
 
     this.tutorService.getAllSubjects().subscribe((subjects) => {

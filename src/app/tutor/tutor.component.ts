@@ -55,7 +55,6 @@ export class TutorComponent implements OnInit {
       console.log("response from modes => ")
       console.log(modes)
       modes.forEach(mode => this.modes.push(mode));
-      debugger;
       this.fetchStatus = "";
     });
 

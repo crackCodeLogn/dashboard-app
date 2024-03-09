@@ -1,0 +1,24 @@
+<!-- 
+Date,H,S,F,CCC,C-C,C-S,C-T,N,NCC,WS,From,To,Amount,Mode,Note
+20230903,99940.09,10022.77,5737.88,-232.50,2763.05,301.38,101.53,3685.91,0.00,7.00,CCC,,15.0,U,fb stuff
+20230907,99940.09,10022.77,5737.88,-232.50,3034.30,301.38,101.53,3685.91,0.00,7.00,,C-C,271.25,U,fb income
+20230908,99940.09,10022.77,5737.88,-232.50,3093.30,301.38,101.53,3685.91,0.00,7.00,,C-C,59.0,U,otb rebate
+20230911,99940.09,10022.77,5737.88,-232.50,3343.30,301.38,101.53,3685.91,0.00,7.00,,C-C,250.0,U,vt income
+20230925,99940.09,10022.77,5737.88,-232.50,3343.30,301.38,101.53,3685.91,0.00,7.00,,C-C,0.0,U,vt income
+20231001,99940.09,10022.77,5737.88,-232.50,1343.30,301.38,101.53,3685.91,0.00,7.00,C-C,,2000.0,U,rent - 1st and last -->
+
+
+<table class="black-border-table">
+    <thead>
+        <tr>
+            <th class="center-align" *ngFor="let store of stores">
+                {{store}}
+            </th>
+        </tr>
+    </thead>
+    <tr *ngFor="let row of dataRows; let index = index">
+        <td class="right-align" *ngFor="let item of row; let i = index" [ngClass]="i === 14 ? 'wide-column': ''">{{item}}
+        </td>
+        <td class="center-align">{{notes[index]}}</td>
+    </tr>
+</table>

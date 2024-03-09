@@ -1,0 +1,26 @@
+.black-border-table {
+    width: 100%;
+    /* table-layout: fixed; */
+    table-layout: auto;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+.right-align {
+    /* width: 6%; */
+    text-align: end;
+}
+
+.center-align {
+    /* width: 6%; */
+    text-align: center;
+}
+
+.wide-column {
+    width: 10%;
+}

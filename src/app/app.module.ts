@@ -14,11 +14,14 @@ import { TutorComponent } from './tutor/tutor.component';
 import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule, TimepickerConfig } from 'ngx-bootstrap/timepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ExpenseSimulatorComponent } from './expense-simulator/expense-simulator.component';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'market/:ticker', component: MarketComponent },
   { path: 'tutor', component: TutorComponent },
+  { path: 'expense-simulator', component: ExpenseSimulatorComponent },
 ]
 
 @NgModule({
@@ -28,7 +31,8 @@ const appRoutes: Routes = [
     NavBarComponent,
     MarketComponent,
     DashboardComponent,
-    TutorComponent
+    TutorComponent,
+    ExpenseSimulatorComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     TimepickerModule.forRoot(),
   ],
-  providers: [BsDatepickerConfig, TimepickerConfig],
+  providers: [BsDatepickerConfig, TimepickerConfig, {
+    provide: LocationStrategy, useClass: PathLocationStrategy
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

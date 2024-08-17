@@ -7,11 +7,12 @@
             <div class="radio-container">
                 <label class="label">Mode: </label>
                 <div class="radio-group" *ngFor="let mode of modes">
-                    <label class="radio-label" [for]="mode.id" [style.color]="mode.color">
+                    <label [for]="getModeId(0, mode.id)" [style.color]="mode.color" class="radio-label">
                         <!-- <input formControlName="mode" class="radio-button" type="radio" [id]="mode.id" [value]="mode.id" -->
-                        <input formControlName="mode" class="radio-button" type="radio" [id]="mode.id"
-                            [value]="mode.id">
-                        {{mode.name}}
+                        <input [id]="getModeId(0, mode.id)" [value]="mode.id" class="radio-button" formControlName="mode"
+
+                               type="radio">
+                        {{ mode.name }}
                     </label>
                 </div>
             </div>
@@ -22,8 +23,8 @@
                 <label class="label">Student: </label>
                 <input formControlName="student" class="student-input" placeholder="Enter student name">
                 <!-- <select class="dropdown" formControlName="student">
-                    <option value="" disabled selected>Select student</option>
-                    <option *ngFor="let student of students" [id]="student.id">{{student.name}}</option>
+                  <option value="" disabled selected>Select student</option>
+                  <option *ngFor="let student of students" [id]="student.id">{{student.name}}</option>
                 </select> -->
             </div>
         </div>
@@ -33,8 +34,10 @@
                 <label class="label">Subject: </label>
                 <select class="dropdown" formControlName="subject">
                     <option value="" disabled selected>Select subject</option>
-                    <option *ngFor="let subject of getSubjectsForMode()" [id]="subject.id" [value]="subject.id">
-                        {{subject.name}}</option>
+                    <option *ngFor="let subject of getSubjectsForMode(this.sessionForm.value['mode'])" [id]="subject.id"
+                            [value]="subject.id">
+                        {{ subject.name }}
+                    </option>
                 </select>
             </div>
         </div>
@@ -43,32 +46,32 @@
             <div class="form-container ">
                 <label class="label">Date: </label>
                 <input formControlName="date" type="text" placeholder="Date" class="form-control datepicker"
-                    bsDatepicker [bsConfig]="datepickerConfig" (ngModelChange)="onDateChange($event)">
+                       (ngModelChange)="onDateChange($event)" [bsConfig]="datepickerConfig" bsDatepicker>
             </div>
         </div>
 
         <!-- <div class="container">
         <div class="row">
           <div class="col-xs-12 col-12 col-md-4 form-group">
-            <input type="text"
-                  placeholder="Datepicker"
-                  class="form-control"
-                  bsDatepicker>
+          <input type="text"
+              placeholder="Datepicker"
+              class="form-control"
+              bsDatepicker>
           </div>
           <div class="col-xs-12 col-12 col-md-4 form-group">
-            <input type="text"
-                  placeholder="Daterangepicker"
-                  class="form-control"
-                  bsDaterangepicker>
+          <input type="text"
+              placeholder="Daterangepicker"
+              class="form-control"
+              bsDaterangepicker>
           </div>
         </div>
-      </div> -->
+        </div> -->
 
         <div class="row-block">
             <div class="form-container">
                 <label class="label">Time: </label>
                 <input formControlName="time" class="time-input" type="text" pattern="[0-9]*" placeholder="Start time"
-                    oninput="this.value=this.value.replace(/[^0-9]/g,'')" minlength="4" maxlength="4" required>
+                       maxlength="4" minlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
             </div>
         </div>
 
@@ -139,3 +142,71 @@
         </div>
     </div>
 </div>
+
+<!--<form [formGroup]="sessionDataSave">-->
+
+<!--</form>-->
+
+<form [formGroup]="sessionDataForm">
+    <div class="centered-text">Save session data locally</div>
+    <div *ngIf="fetchStatus.length > 0" class="centered-text-small">{{ fetchStatus }}</div>
+
+    <div class="container">
+        <div class="row-block">
+            <div class="radio-container">
+                <label class="label">Mode: </label>
+                <div *ngFor="let mode of modes" class="radio-group">
+                    <label [for]="getModeId(1, mode.id)" [style.color]="mode.color" class="radio-label">
+                        <input [id]="getModeId(1, mode.id)" [value]="mode.id" class="radio-button" formControlName="mode"
+                               type="radio">
+                        {{ mode.name }}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-block">
+            <div class="form-container">
+                <label class="label">Student: </label>
+                <input class="student-input" formControlName="student" placeholder="Enter student name">
+            </div>
+        </div>
+
+        <div class="row-block">
+            <div class="form-container ">
+                <label class="label">Subject: </label>
+                <select class="dropdown" formControlName="subject">
+                    <option disabled selected value="">Select subject</option>
+                    <option *ngFor="let subject of getSubjectsForMode(this.sessionDataForm.value['mode'])"
+                            [id]="subject.id"
+                            [value]="subject.id">
+                        {{ subject.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row-block">
+            <div class="form-container ">
+                <label class="label">Date: </label>
+                <input (ngModelChange)="onDateChange($event)" [bsConfig]="datepickerConfig" bsDatepicker class="form-control datepicker"
+                       formControlName="date" placeholder="Date" type="text">
+            </div>
+        </div>
+
+        <div class="row-block">
+            <div class="form-container ">
+                <label class="label">Data: </label>
+                <textarea class="student-data-input" formControlName="data" placeholder="Enter session data here"
+                          rows="6">
+        </textarea>
+            </div>
+        </div>
+
+        <div class="row-block">
+            <div class="form-container">
+                <input (click)="onSessionDataSave()" class="btn-save btn btn-primary" type="button" value="Save">
+            </div>
+        </div>
+    </div>
+</form>

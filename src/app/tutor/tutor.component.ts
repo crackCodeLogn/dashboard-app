@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TutorService} from '../services/tutor.service';
 import {Session} from '../model/Session';
 import {SessionData} from "../model/SessionData";
+import {ExpiryData} from "../model/ExpiryData";
 
 @Component({
     selector: 'app-tutor',
@@ -17,6 +18,7 @@ export class TutorComponent implements OnInit {
 
     sessionForm!: FormGroup;
     sessionDataForm!: FormGroup;
+    expiryForm!: FormGroup; //todo - separate into its own folder later. Is to be used for marking expiry of items
     fetchStatus: string = '*** Waiting for server to come alive ***';
 
     modes: Mode[] = [];
@@ -56,6 +58,11 @@ export class TutorComponent implements OnInit {
             mode: [this.initialMode, Validators.required],
             student: [this.initialStudent, Validators.required],
             subject: [this.initialSubject, Validators.required],
+            date: [this.initialSupplierDate, Validators.required],
+            data: [this.initialSupplierData, Validators.required]
+        });
+
+        this.expiryForm = this.fb.group({
             date: [this.initialSupplierDate, Validators.required],
             data: [this.initialSupplierData, Validators.required]
         });
@@ -111,11 +118,11 @@ export class TutorComponent implements OnInit {
         return this.subjects.filter(p => p.modeId === modeId);
     }
 
-    onDateChange(event: Event) {
+    onDateChange(event: Event): void {
         console.log(event);
     }
 
-    onSessionSave() {
+    onSessionSave(): void {
         console.log(this.sessionForm)
         if (this.sessionForm.valid) {
             console.log("Form data is valid, will invoke the save API now!")
@@ -154,7 +161,7 @@ export class TutorComponent implements OnInit {
         }
     }
 
-    onSessionDataSave() {
+    onSessionDataSave(): void {
         console.log(this.sessionDataForm);
         if (this.sessionDataForm.valid) {
             console.log("Session data form is valid, will invoke the save data API now!")
@@ -184,6 +191,32 @@ export class TutorComponent implements OnInit {
             this.sessionDataForm.get('mode')?.patchValue(this.initialMode);
             this.sessionDataForm.get('date')?.patchValue(this.initialSupplierDate);
             this.sessionDataForm.get('data')?.patchValue(this.initialSupplierData);
+        } else {
+            console.log("Form session data is invalid..")
+        }
+    }
+
+    onExpirySave(): void {
+        console.log(this.expiryForm);
+        if (this.expiryForm.valid) {
+            console.log("Expiry form is valid, will invoke the save expiry API now!")
+            const sessionDate: Date = new Date(this.expiryForm.value['date'] as Date)
+            sessionDate.setHours(0);
+            sessionDate.setMinutes(0);
+            sessionDate.setSeconds(0);
+            const data: string = this.expiryForm.value['data'] as string
+
+            const expiryData: ExpiryData = new ExpiryData();
+            expiryData.date = sessionDate;
+            expiryData.data = data;
+
+            console.log(expiryData);
+
+            this.tutorService.sendExpiryData(expiryData);
+
+            this.expiryForm.reset();
+            this.expiryForm.get('date')?.patchValue(this.initialSupplierDate);
+            this.expiryForm.get('data')?.patchValue(this.initialSupplierData);
         } else {
             console.log("Form session data is invalid..")
         }

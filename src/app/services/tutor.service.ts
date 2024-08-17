@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {Mode} from '../model/Mode';
 import {Session} from '../model/Session';
 import {SessionData} from '../model/SessionData';
+import {ExpiryData} from "../model/ExpiryData";
 
 @Injectable({
     providedIn: 'root'
@@ -32,5 +33,10 @@ export class TutorService {
     public sendSessionDataDetail(sessionData: SessionData): void {
         console.log("Sending session data up => ", sessionData)
         this.client.post(`${this.urlBase}/tutor/sessionData`, sessionData).subscribe();
+    }
+
+    sendExpiryData(expiryData: ExpiryData): void {
+        console.log("Sending expiry data up => ", expiryData)
+        this.client.post(`${this.urlBase}/tutor/expiryData`, expiryData).subscribe();
     }
 }

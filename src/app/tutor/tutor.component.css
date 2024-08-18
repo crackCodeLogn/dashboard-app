@@ -1,6 +1,12 @@
 :host {
     width: 100%;
 
+    .blob-row {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+    }
+
     .centered-text {
         /* position: relative;; */
         top: 20px;

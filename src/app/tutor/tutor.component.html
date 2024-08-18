@@ -91,99 +91,100 @@
         </div>
     </div>
 </form>
-<form [formGroup]="sessionDataForm">
-    <div class="centered-text">Save session data locally</div>
-    <div *ngIf="fetchStatus.length > 0" class="centered-text-small">{{ fetchStatus }}</div>
+<div class="blob-row">
+    <form [formGroup]="sessionDataForm">
+        <div class="centered-text">Save session data locally</div>
+        <div *ngIf="fetchStatus.length > 0" class="centered-text-small">{{ fetchStatus }}</div>
 
-    <div class="container">
-        <div class="row-block">
-            <div class="radio-container">
-                <label class="label">Mode: </label>
-                <div *ngFor="let mode of modes" class="radio-group">
-                    <label [for]="getModeId(1, mode.id)" [style.color]="mode.color" class="radio-label">
-                        <input [id]="getModeId(1, mode.id)" [value]="mode.id" class="radio-button"
-                               formControlName="mode"
-                               type="radio">
-                        {{ mode.name }}
-                    </label>
+        <div class="container">
+            <div class="row-block">
+                <div class="radio-container">
+                    <label class="label">Mode: </label>
+                    <div *ngFor="let mode of modes" class="radio-group">
+                        <label [for]="getModeId(1, mode.id)" [style.color]="mode.color" class="radio-label">
+                            <input [id]="getModeId(1, mode.id)" [value]="mode.id" class="radio-button"
+                                   formControlName="mode"
+                                   type="radio">
+                            {{ mode.name }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row-block">
+                <div class="form-container">
+                    <label class="label">Student: </label>
+                    <input class="student-input" formControlName="student" placeholder="Enter student name">
+                </div>
+            </div>
+
+            <div class="row-block">
+                <div class="form-container ">
+                    <label class="label">Subject: </label>
+                    <select class="dropdown" formControlName="subject">
+                        <option disabled selected value="">Select subject</option>
+                        <option *ngFor="let subject of getSubjectsForMode(this.sessionDataForm.value['mode'])"
+                                [id]="subject.id"
+                                [value]="subject.id">
+                            {{ subject.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row-block">
+                <div class="form-container ">
+                    <label class="label">Date: </label>
+                    <input (ngModelChange)="onDateChange($event)" [bsConfig]="datepickerConfig" bsDatepicker
+                           class="form-control datepicker"
+                           formControlName="date" placeholder="Date" type="text">
+                </div>
+            </div>
+
+            <div class="row-block">
+                <div class="form-container ">
+                    <label class="label">Data: </label>
+                    <textarea class="student-data-input" formControlName="data" placeholder="Enter session data here"
+                              rows="6">
+        </textarea>
+                </div>
+            </div>
+
+            <div class="row-block">
+                <div class="form-container">
+                    <input (click)="onSessionDataSave()" class="btn-save btn btn-primary" type="button" value="Save">
                 </div>
             </div>
         </div>
+    </form>
 
-        <div class="row-block">
-            <div class="form-container">
-                <label class="label">Student: </label>
-                <input class="student-input" formControlName="student" placeholder="Enter student name">
+    <form [formGroup]="getSessionDataForm">
+        <div class="centered-text">Get latest session data</div>
+
+        <div class="container">
+            <div class="row-block">
+                <div class="form-container">
+                    <label class="label">Student: </label>
+                    <input class="student-input" formControlName="student" placeholder="Enter student name">
+                </div>
+            </div>
+
+            <div class="row-block">
+                <div class="form-container ">
+                    <label class="label">Data: </label>
+                    <textarea class="student-data-input" formControlName="data" placeholder="Enter student name here"
+                              rows="10"> </textarea>
+                </div>
+            </div>
+
+            <div class="row-block">
+                <div class="form-container">
+                    <input (click)="onGetSessionData()" class="btn-save btn btn-primary" type="button" value="Get">
+                </div>
             </div>
         </div>
-
-        <div class="row-block">
-            <div class="form-container ">
-                <label class="label">Subject: </label>
-                <select class="dropdown" formControlName="subject">
-                    <option disabled selected value="">Select subject</option>
-                    <option *ngFor="let subject of getSubjectsForMode(this.sessionDataForm.value['mode'])"
-                            [id]="subject.id"
-                            [value]="subject.id">
-                        {{ subject.name }}
-                    </option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row-block">
-            <div class="form-container ">
-                <label class="label">Date: </label>
-                <input (ngModelChange)="onDateChange($event)" [bsConfig]="datepickerConfig" bsDatepicker
-                       class="form-control datepicker"
-                       formControlName="date" placeholder="Date" type="text">
-            </div>
-        </div>
-
-        <div class="row-block">
-            <div class="form-container ">
-                <label class="label">Data: </label>
-                <textarea class="student-data-input" formControlName="data" placeholder="Enter session data here"
-                          rows="6">
-        </textarea>
-            </div>
-        </div>
-
-        <div class="row-block">
-            <div class="form-container">
-                <input (click)="onSessionDataSave()" class="btn-save btn btn-primary" type="button" value="Save">
-            </div>
-        </div>
-    </div>
-</form>
-
-<form [formGroup]="getSessionDataForm">
-    <div class="centered-text">Get latest session data</div>
-
-    <div class="container">
-        <div class="row-block">
-            <div class="form-container">
-                <label class="label">Student: </label>
-                <input class="student-input" formControlName="student" placeholder="Enter student name">
-            </div>
-        </div>
-
-        <div class="row-block">
-            <div class="form-container ">
-                <label class="label">Data: </label>
-                <textarea class="student-data-input" formControlName="data" placeholder="Enter student name here"
-                          rows="10"> </textarea>
-            </div>
-        </div>
-
-        <div class="row-block">
-            <div class="form-container">
-                <input (click)="onGetSessionData()" class="btn-save btn btn-primary" type="button" value="Get">
-            </div>
-        </div>
-    </div>
-</form>
-
+    </form>
+</div>
 <form [formGroup]="expiryForm">
     <div class="centered-text">Save expiry data for Calendar</div>
 

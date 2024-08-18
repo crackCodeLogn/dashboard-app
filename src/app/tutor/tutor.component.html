@@ -157,9 +157,35 @@
     </div>
 </form>
 
+<form [formGroup]="getSessionDataForm">
+    <div class="centered-text">Get latest session data</div>
+
+    <div class="container">
+        <div class="row-block">
+            <div class="form-container">
+                <label class="label">Student: </label>
+                <input class="student-input" formControlName="student" placeholder="Enter student name">
+            </div>
+        </div>
+
+        <div class="row-block">
+            <div class="form-container ">
+                <label class="label">Data: </label>
+                <textarea class="student-data-input" formControlName="data" placeholder="Enter student name here"
+                          rows="10"> </textarea>
+            </div>
+        </div>
+
+        <div class="row-block">
+            <div class="form-container">
+                <input (click)="onGetSessionData()" class="btn-save btn btn-primary" type="button" value="Get">
+            </div>
+        </div>
+    </div>
+</form>
+
 <form [formGroup]="expiryForm">
     <div class="centered-text">Save expiry data for Calendar</div>
-    <div *ngIf="fetchStatus.length > 0" class="centered-text-small">{{ fetchStatus }}</div>
 
     <div class="container">
         <div class="row-block">

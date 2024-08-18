@@ -18,6 +18,7 @@ export class TutorComponent implements OnInit {
 
     sessionForm!: FormGroup;
     sessionDataForm!: FormGroup;
+    getSessionDataForm!: FormGroup;
     expiryForm!: FormGroup; //todo - separate into its own folder later. Is to be used for marking expiry of items
     fetchStatus: string = '*** Waiting for server to come alive ***';
 
@@ -61,6 +62,11 @@ export class TutorComponent implements OnInit {
             date: [this.initialSupplierDate, Validators.required],
             data: [this.initialSupplierData, Validators.required]
         });
+
+        this.getSessionDataForm = this.fb.group({
+            student: [this.initialStudent, Validators.required],
+            data: [this.initialSupplierData]
+        })
 
         this.expiryForm = this.fb.group({
             date: [this.initialSupplierDate, Validators.required],
@@ -219,6 +225,19 @@ export class TutorComponent implements OnInit {
             this.expiryForm.get('data')?.patchValue(this.initialSupplierData);
         } else {
             console.log("Form session data is invalid..")
+        }
+    }
+
+    onGetSessionData(): void {
+        console.log(this.getSessionDataForm);
+        if (this.getSessionDataForm.valid) {
+            const student: string = this.getSessionDataForm.value['student'] as string;
+            this.tutorService.getLatestSessionData(student.toLowerCase().trim())
+                .subscribe((data) => {
+                    const output: string = `${data.fileName}\n${data.fileData}`;
+                    console.log(`Received => ${output} == ${data.toString()}`)
+                    this.getSessionDataForm.get('data')?.setValue(output);
+                });
         }
     }
 

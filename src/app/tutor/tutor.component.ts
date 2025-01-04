@@ -8,6 +8,7 @@ import {TutorService} from '../services/tutor.service';
 import {Session} from '../model/Session';
 import {SessionData} from "../model/SessionData";
 import {ExpiryData} from "../model/ExpiryData";
+import {LibraryData} from "../model/LibraryData";
 
 @Component({
     selector: 'app-tutor',
@@ -20,6 +21,7 @@ export class TutorComponent implements OnInit {
     sessionDataForm!: FormGroup;
     getSessionDataForm!: FormGroup;
     expiryForm!: FormGroup; //todo - separate into its own folder later. Is to be used for marking expiry of items
+    libForm!: FormGroup; //todo - separate into its own folder later. Is to be used for lib data
     fetchStatus: string = '*** Waiting for server to come alive ***';
 
     modes: Mode[] = [];
@@ -71,6 +73,13 @@ export class TutorComponent implements OnInit {
         this.expiryForm = this.fb.group({
             date: [this.initialSupplierDate, Validators.required],
             data: [this.initialSupplierData, Validators.required]
+        });
+
+        this.libForm = this.fb.group({
+            bookName: [this.initialSupplierData, Validators.required],
+            borrowDate: [this.initialSupplierDate],
+            returnDate: [this.initialSupplierDate],
+            returnedDate: [this.initialSupplierDate],
         });
     }
 
@@ -228,6 +237,38 @@ export class TutorComponent implements OnInit {
         }
     }
 
+    onLibSave(): void {
+        console.log(this.libForm);
+        if (this.libForm.valid) {
+            console.log("Lib form is valid, will invoke the save lib API now!")
+            const libraryData: LibraryData = new LibraryData();
+            libraryData.bookName = this.libForm.value['bookName'] as string
+            if (this.libForm.value['borrowDate']) {
+                libraryData.borrowDate = this.libForm.value['borrowDate'] as Date;
+                this.clearHMS(libraryData.borrowDate);
+            }
+            if (this.libForm.value['returnDate']) {
+                libraryData.returnDate = this.libForm.value['returnDate'] as Date;
+                this.clearHMS(libraryData.returnDate);
+            }
+            if (this.libForm.value['returnedDate']) {
+                libraryData.returnedDate = this.libForm.value['returnedDate'] as Date;
+                this.clearHMS(libraryData.returnedDate);
+            }
+
+            // console.log(libraryData);
+            this.tutorService.sendLibData(libraryData);
+
+            this.libForm.reset();
+            this.libForm.get('bookName')?.patchValue(this.initialSupplierData);
+            this.libForm.get('borrowDate')?.patchValue(this.initialSupplierDate);
+            this.libForm.get('returnDate')?.patchValue(this.initialSupplierDate);
+            this.libForm.get('returnedDate')?.patchValue(this.initialSupplierDate);
+        } else {
+            console.log("Form session data is invalid..")
+        }
+    }
+
     onGetSessionData(): void {
         console.log(this.getSessionDataForm);
         if (this.getSessionDataForm.valid) {
@@ -247,5 +288,23 @@ export class TutorComponent implements OnInit {
 
     getModeId(number: number, id: number): string {
         return `${id}-${number}`;
+    }
+
+    clearBorrowDate(): void {
+        this.libForm.get('borrowDate')?.setValue(null);
+    }
+
+    clearReturnDate(): void {
+        this.libForm.get('returnDate')?.setValue(null);
+    }
+
+    clearReturnedDate(): void {
+        this.libForm.get('returnedDate')?.setValue(null);
+    }
+
+    private clearHMS(date: Date): void {
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
     }
 }

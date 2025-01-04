@@ -185,34 +185,101 @@
         </div>
     </form>
 </div>
-<form [formGroup]="expiryForm">
-    <div class="centered-text">Save expiry data for Calendar</div>
+<div class="blob-row">
+    <form [formGroup]="expiryForm">
+        <div class="centered-text">Save expiry data for Calendar</div>
 
-    <div class="container">
-        <div class="row-block">
-            <div class="form-container ">
-                <label class="label">Date: </label>
-                <input (ngModelChange)="onDateChange($event)" [bsConfig]="datepickerConfig" bsDatepicker
-                       class="form-control datepicker"
-                       formControlName="date" placeholder="Date" type="text">
+        <div class="container">
+            <div class="row-block">
+                <div class="form-container ">
+                    <label class="label">Date: </label>
+                    <input (ngModelChange)="onDateChange($event)" [bsConfig]="datepickerConfig" bsDatepicker
+                           class="form-control datepicker"
+                           formControlName="date" placeholder="Date" type="text">
+                </div>
+            </div>
+
+            <div class="row-block">
+                <div class="form-container ">
+                    <label class="label">Data: </label>
+                    <textarea class="student-data-input" formControlName="data" placeholder="Enter expiry data here"
+                              rows="2"> </textarea>
+                </div>
+            </div>
+
+            <div class="row-block">
+                <div class="form-container">
+                    <input (click)="onExpirySave()" class="btn-save btn btn-primary" type="button" value="Save">
+                </div>
             </div>
         </div>
+    </form>
 
-        <div class="row-block">
-            <div class="form-container ">
-                <label class="label">Data: </label>
-                <textarea class="student-data-input" formControlName="data" placeholder="Enter expiry data here"
-                          rows="2"> </textarea>
+    <form [formGroup]="libForm">
+        <div class="centered-text">Save lib data for Calendar</div>
+
+        <div class="container">
+            <div class="row-block">
+                <div class="form-container ">
+                    <label class="label">Book Name: </label>
+                    <textarea class="student-data-input" formControlName="bookName" placeholder="Enter book name"
+                              rows="2"> </textarea>
+                </div>
+            </div>
+            <div class="row-block">
+                <div class="form-container ">
+                    <label class="label">Borrow Date: </label>
+                    <input (ngModelChange)="onDateChange($event)" [bsConfig]="datepickerConfig" bsDatepicker
+                           class="form-control datepicker"
+                           formControlName="borrowDate" placeholder="Borrow Date" type="text">
+                    <button
+                        (click)="clearBorrowDate()"
+                        class="btn btn-clear"
+                        title="Clear Borrow Date"
+                        type="button">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row-block">
+                <div class="form-container ">
+                    <label class="label">Return Date: </label>
+                    <input (ngModelChange)="onDateChange($event)" [bsConfig]="datepickerConfig" bsDatepicker
+                           class="form-control datepicker"
+                           formControlName="returnDate" placeholder="Return Date" type="text">
+                    <button
+                        (click)="clearReturnDate()"
+                        class="btn btn-clear"
+                        title="Clear Return Date"
+                        type="button">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row-block">
+                <div class="form-container ">
+                    <label class="label">Returned Date: </label>
+                    <input (ngModelChange)="onDateChange($event)" [bsConfig]="datepickerConfig" bsDatepicker
+                           class="form-control datepicker"
+                           formControlName="returnedDate" placeholder="Returned Date" type="text">
+                    <button
+                        (click)="clearReturnedDate()"
+                        class="btn btn-clear"
+                        title="Clear Returned Date"
+                        type="button">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row-block">
+                <div class="form-container">
+                    <input (click)="onLibSave()" class="btn-save btn btn-primary" type="button" value="Save">
+                </div>
             </div>
         </div>
-
-        <div class="row-block">
-            <div class="form-container">
-                <input (click)="onExpirySave()" class="btn-save btn btn-primary" type="button" value="Save">
-            </div>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 
 <div hidden>
     <div class="centered-text">Add new student</div>

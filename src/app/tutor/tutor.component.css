@@ -97,4 +97,20 @@
         font-size: 15px;
         text-align: center;
     }
+
+
+    .btn-clear {
+        margin-left: 10px;
+        background: none;
+        border: none;
+        color: #f44336;
+        font-size: 18px;
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+    }
+
+    .btn-clear:hover {
+        color: #d32f2f;
+    }
 }

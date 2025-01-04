@@ -7,6 +7,7 @@ import {Session} from '../model/Session';
 import {SessionData} from '../model/SessionData';
 import {ExpiryData} from "../model/ExpiryData";
 import {GetSessionData} from "../model/GetSessionData";
+import {LibraryData} from "../model/LibraryData";
 
 @Injectable({
     providedIn: 'root'
@@ -44,5 +45,10 @@ export class TutorService {
     public sendExpiryData(expiryData: ExpiryData): void {
         console.log("Sending expiry data up => ", expiryData)
         this.client.post(`${this.urlBase}/tutor/expiryData`, expiryData).subscribe();
+    }
+
+    public sendLibData(libraryData: LibraryData): void {
+        console.log("Sending lib data up => ", libraryData)
+        this.client.post(`${this.urlBase}/tutor/lib`, libraryData).subscribe();
     }
 }
